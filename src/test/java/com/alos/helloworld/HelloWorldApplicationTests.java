@@ -1,13 +1,13 @@
-package com.alos.helloworld;
+// package com.alos.helloworld;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class HelloWorldApplicationTests {
+// @SpringBootTest
+// class HelloWorldApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }

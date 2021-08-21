@@ -1,4 +1,4 @@
-package com.alos.helloworld.entities;
+package com.alos.library_list_application.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

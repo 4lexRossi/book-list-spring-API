@@ -1,4 +1,4 @@
-package com.alos.helloworld.entities.responses;
+package com.alos.library_list_application.entities.responses;
 
 import org.springframework.stereotype.Component;
 

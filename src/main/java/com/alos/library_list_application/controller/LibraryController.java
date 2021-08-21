@@ -1,11 +1,11 @@
-package com.alos.helloworld.controller;
+package com.alos.library_list_application.controller;
 
 import java.util.List;
 
-import com.alos.helloworld.controller.services.LibraryService;
-import com.alos.helloworld.entities.Library;
-import com.alos.helloworld.entities.responses.AddResponse;
-import com.alos.helloworld.repository.LibraryRepository;
+import com.alos.library_list_application.controller.services.LibraryService;
+import com.alos.library_list_application.entities.Library;
+import com.alos.library_list_application.entities.responses.AddResponse;
+import com.alos.library_list_application.repository.LibraryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

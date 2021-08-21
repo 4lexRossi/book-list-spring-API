@@ -1,6 +1,6 @@
-package com.alos.helloworld.repository;
+package com.alos.library_list_application.repository;
 
-import com.alos.helloworld.entities.Library;
+import com.alos.library_list_application.entities.Library;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

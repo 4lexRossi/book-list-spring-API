@@ -1,9 +1,9 @@
-package com.alos.helloworld.controller.services;
+package com.alos.library_list_application.controller.services;
 
 import java.util.Optional;
 
-import com.alos.helloworld.entities.Library;
-import com.alos.helloworld.repository.LibraryRepository;
+import com.alos.library_list_application.entities.Library;
+import com.alos.library_list_application.repository.LibraryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -7,6 +7,8 @@ import com.alos.library_list_application.entities.Library;
 import com.alos.library_list_application.entities.responses.AddResponse;
 import com.alos.library_list_application.repository.LibraryRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,8 @@ public class LibraryController {
     @Autowired
     AddResponse addResponse;
 
+    private static final Logger logger = LoggerFactory.getLogger(LibraryController.class);
+
     @GetMapping("/get-books")
     public List<Library> getAllBooks() {
         List<Library> allBooks = libraryRepository.findAll();
@@ -60,6 +64,7 @@ public class LibraryController {
 
         String id = libraryService.buildId(library.getIsbn(), library.getAisle());
         if(!libraryService.checkBookAlreadyExist(id)) {
+            logger.info("Book is created successfully");
             library.setId(id);
             libraryRepository.save(library);
 
@@ -70,7 +75,7 @@ public class LibraryController {
             addResponse.setId(id);
             return new ResponseEntity<>(addResponse, httpHeaders, HttpStatus.CREATED);
         }
-
+        logger.info("Book already exist, can't create duplicated one");
         addResponse.setMsg("Book with id: " + id + " already exists");
         addResponse.setId(id);
         return new ResponseEntity<>(addResponse, HttpStatus.ACCEPTED);

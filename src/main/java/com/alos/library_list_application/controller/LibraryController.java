@@ -12,9 +12,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +34,26 @@ public class LibraryController {
 
     @Autowired
     AddResponse addResponse;
+
+    @GetMapping("/get-books")
+    public List<Library> getAllBooks() {
+        List<Library> allBooks = libraryRepository.findAll();
+        return allBooks;
+    }
+
+    @GetMapping("/get-books/{id}")
+    public Library getBookId(@PathVariable(value = "id")String id) {
+        try {
+            return libraryRepository.findById(id).get();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @GetMapping("/get-books/author")
+    public List<Library> getBookByAuthor(@RequestParam(value = "authorName")String authorName) {
+        return libraryRepository.findAllByAuthor(authorName);
+    }
 
     @PostMapping("/add-book")
     public ResponseEntity<AddResponse> addBookImplementation(@RequestBody Library library) {
@@ -54,18 +76,27 @@ public class LibraryController {
         return new ResponseEntity<>(addResponse, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/get-books/{id}")
-    public Library getBookId(@PathVariable(value = "id")String id) {
-        try {
-            return libraryRepository.findById(id).get();
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+    @PutMapping("/update-book/{id}")
+    public ResponseEntity<Library> updateBook(@PathVariable(value = "id")String id, @RequestBody Library library) {
+
+        Library existingBook = libraryRepository.findById(id).get();
+
+        existingBook.setAisle(library.getAisle());
+        existingBook.setAuthor(library.getAuthor());
+        existingBook.setBookName(library.getBookName());
+        libraryRepository.save(existingBook);
+
+        return new ResponseEntity<>(existingBook, HttpStatus.OK);
     }
 
-    @GetMapping("/get-books/author")
-    public List<Library> getBookByAuthor(@RequestParam(value = "authorName")String authorName) {
-
-        return libraryRepository.findAllByAuthor(authorName);
+    @DeleteMapping("delete-book")
+    public ResponseEntity<String> deleteBookById(@RequestBody Library library) {
+        try {
+            Library bookDeleted = libraryRepository.findById(library.getId()).get();
+            libraryRepository.delete(bookDeleted);
+            return new ResponseEntity<>("Book is Deleted", HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -14,8 +14,11 @@ public class LibraryService {
     @Autowired
     LibraryRepository libraryRepository;
 
-    public String buildId(String isbn, int aisle) {
-        return isbn + aisle;
+    public String buildId(String isbn, Integer aisle) {
+        if(isbn.length() != 0 || aisle != null) {
+            return isbn + aisle;
+        }
+        return "Missing isbn or aisle value(s)";
     }
 
     public boolean checkBookAlreadyExist(String id) {

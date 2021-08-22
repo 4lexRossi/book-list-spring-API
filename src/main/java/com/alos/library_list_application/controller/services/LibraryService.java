@@ -30,4 +30,8 @@ public class LibraryService {
         }
         return hasBook;
     }
+
+    public Library getBookById(String id) {
+        return libraryRepository.findById(id).get();
+    }
 }

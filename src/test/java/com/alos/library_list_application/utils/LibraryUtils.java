@@ -9,11 +9,22 @@ public class LibraryUtils {
 
         libraryMock.setAisle(123);
         libraryMock.setBookName("TestBook");
-        libraryMock.setAisle(123);
-        libraryMock.setAuthor("TestAuthor");
         libraryMock.setIsbn("test");
+        libraryMock.setAuthor("TestAuthor");
         libraryMock.setId(libraryMock.getIsbn() + libraryMock.getAisle());
 
         return libraryMock;
+    }
+
+    public static Library mockUpdateLibrary(String id) {
+        Library libraryUpdateMock = new Library();
+
+        libraryUpdateMock.setAisle(456);
+        libraryUpdateMock.setBookName("UpdateBook");
+        libraryUpdateMock.setAuthor("UpdateAuthor");
+        libraryUpdateMock.setIsbn(mockBuildLibrary().getIsbn());
+        libraryUpdateMock.setId(id);
+
+        return libraryUpdateMock;
     }
 }

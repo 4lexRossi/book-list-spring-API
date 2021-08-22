@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.*;
 
-import static com.alos.library_list_application.utils.LibraryUtils.mockBuildLibrary;
+import static com.alos.library_list_application.utils.LibraryUtils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -119,6 +119,7 @@ public class LibraryControllerTest {
         List<Library> bookList = new ArrayList<>();
         bookList.add(mockBuildLibrary());
         bookList.add(mockBuildLibrary());
+
         when(libraryRepository.findAllByAuthor(any())).thenReturn(bookList);
         this.mockMvc.perform(get("/get-books/author").param("authorName", "TestAuthor"))
             .andExpect(status().isOk())
@@ -128,10 +129,16 @@ public class LibraryControllerTest {
             .andExpect(jsonPath("$.[0].id").value(bookList.get(0).getId()));
     }
 
-    // @Test
-    // public void updateBookTest() {
-    //     Library library
-    //     when(libraryService.getBookById(any())).thenReturn(mockBuildLibrary());
-    //     this.mockMvc.perform(put("/update-book/"))
-    // }
+    @Test
+    public void updateBookTest() throws Exception {
+        Library lib = mockBuildLibrary();
+        ObjectMapper mapper = new ObjectMapper();
+        Library updateLibrary = mockUpdateLibrary(lib.getId());
+        String jsonString = mapper.writeValueAsString(updateLibrary);
+
+        when(libraryService.getBookById(any())).thenReturn(lib);
+        this.mockMvc.perform(put("/update-book/" + lib.getId()).contentType(MediaType.APPLICATION_JSON)
+            .content(jsonString)).andExpect(status().isOk())
+            .andExpect(content().json(jsonString));
+    }
 }

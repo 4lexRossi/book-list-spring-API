@@ -1,5 +1,8 @@
 package com.alos.library_list_application.entities.responses;
 
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import org.springframework.stereotype.Component;
 
 
@@ -7,6 +10,8 @@ import org.springframework.stereotype.Component;
 public class AddResponse {
 
     private String msg;
+
+    @JsonInclude(Include.NON_NULL)
     private String id;
 
     public String getMsg() {

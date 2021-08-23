@@ -77,7 +77,6 @@ public class LibraryController {
         }
         logger.info("Book already exist, can't create duplicated one");
         addResponse.setMsg("Book with id: " + id + " already exists");
-        addResponse.setId(id);
         return new ResponseEntity<>(addResponse, HttpStatus.ACCEPTED);
     }
 

@@ -1,0 +1,2 @@
+insert into storage (book_name,id,isbn,aisle,author) values ('Cypress', 'fda123', 'fda', 123, 'Alex');
+INSERT INTO storage (book_name,id,isbn,aisle,author) VALUES('Devops', 'adf321', 'daf', 321, 'Alex');

@@ -111,7 +111,6 @@ public class LibraryControllerTest {
         when(libraryService.checkBookAlreadyExist(lib.getId())).thenReturn(true);
         this.mockMvc.perform(post("/add-book").contentType(MediaType.APPLICATION_JSON)
             .content(jsonResponse)).andExpect(status().isAccepted())
-            .andExpect(jsonPath("$.id").value(lib.getId()))
             .andExpect(jsonPath("$.msg").value("Book with id: " + lib.getId() + " already exists"));
     }
 

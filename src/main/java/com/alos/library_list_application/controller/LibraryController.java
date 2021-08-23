@@ -97,9 +97,9 @@ public class LibraryController {
     @DeleteMapping("delete-book")
     public ResponseEntity<String> deleteBookById(@RequestBody Library library) {
         try {
-            Library bookDeleted = libraryRepository.findById(library.getId()).get();
+            Library bookDeleted = libraryService.getBookById(library.getId());
             libraryRepository.delete(bookDeleted);
-            return new ResponseEntity<>("Book is Deleted", HttpStatus.CREATED);
+            return new ResponseEntity<>("Book is deleted", HttpStatus.CREATED);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
